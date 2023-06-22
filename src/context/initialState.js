@@ -6,6 +6,7 @@ const cartInfo = fetchCart();
 export const initialState = {
     user : userInfo,
     gasItems : null,
+    deliveryDetails: null,
     cartShow : false,
     cartItems : cartInfo, 
 };

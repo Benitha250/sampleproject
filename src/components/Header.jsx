@@ -86,7 +86,7 @@ const Header = () => {
                 <div className="relative flex items-center justify-center"
                     onClick={showCart}>
                     <MdShoppingCart className="text-textColor text-2xl cursor-pointer"/>
-                    {cartItems && cartItems.length > 0 && (
+                    {cartItems && cartItems.length >= 0 && (
                         <div className="absolute -top-1 -right-2 w-4 h-4 rounded-full bg-cartNumBg flex items-center justify-center">
                             <p className="text-xs text-white font-semibold">{cartItems.length}</p>
                         </div>
@@ -109,7 +109,7 @@ const Header = () => {
                             exit={{opacity: 0, scale: 0.6}}
                             className="w-40 bg-green-600 shadow-xl rounded-lg flex flex-col absolute top-12 right-0">
                         {
-                            user && user.email === "benithauwase05@gmail.com" && (
+                            user && user.email === "benitha.uwase@hashienergy.com" && (
                                 <Link to={"/createItem"}>
                                 <p className="px-4 py-2 flex items-center gap-3 cursor-pointer 
                                 hover:bg-slate-200 transition-all 

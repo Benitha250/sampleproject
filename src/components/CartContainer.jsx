@@ -2,22 +2,44 @@ import React, { useEffect, useState } from 'react'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { motion } from 'framer-motion'
 import { RiRefreshFill } from 'react-icons/ri'
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { app } from '../firebase.config';
 import { useStateValue } from '../context/StateProvider'
 import { actionType } from '../context/reducer'
 import EmptyCart from '../imgs/emptycart.png'
 import CartItem from './CartItem'
+import { Link } from 'react-router-dom';
+
 
 const CartContainer = () => {
 
   const [{cartShow, cartItems, user }, dispatch] = useStateValue();
   const [flag, setflag] = useState(1);
   const [tot, setTot] = useState(0);
+  const firebaseAuth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+  const [isMenu, setIsMenu] = useState(false)
+
 
   const showCart = () => {
     dispatch({
         type : actionType.SET_CART_SHOW,
         cartShow : !cartShow,
     });
+};
+
+const login = async() => {
+  if (!user) {
+      const {user: {providerData}} = await signInWithPopup(firebaseAuth, provider)
+      dispatch({
+          type : actionType.SET_USER,
+          user : providerData[0],
+      });
+      localStorage.setItem('user', JSON.stringify(providerData[0]))
+  }
+  else{
+      setIsMenu(!isMenu)
+  }
 };
 
 useEffect(() => {
@@ -99,13 +121,16 @@ const clearCart = () => {
             </div>
 
             { user ? (
-              <motion.button whileTap={{scale : 0.8}} type="button"
-              className="w-full p-2 rounded-full bg-yellow-700 text-gray-200 text-lg my-2" >
-              Check Out 
-            </motion.button>
+              <Link to={"/checkOutForm"}>
+                <motion.button whileTap={{scale : 0.8}} type="button"
+                className="w-full p-2 rounded-full bg-yellow-700 text-gray-200 text-lg my-2" >
+                Check Out 
+              </motion.button>
+            </Link>
             ) : (
               <motion.button whileTap={{scale : 0.8}} type="button"
-            className="w-full p-2 rounded-full bg-yellow-700 text-gray-200 text-lg my-2" >
+            className="w-full p-2 rounded-full bg-yellow-700 text-gray-200 text-lg my-2" 
+            onClick={login} >
               Login In to check out. 
             </motion.button>
             ) }

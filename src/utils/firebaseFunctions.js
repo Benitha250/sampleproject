@@ -8,6 +8,13 @@ export const saveItem = async (data) => {
     );
 };
 
+// saving delivery details
+export const saveCheckoutDetails = async (data) => {
+    await setDoc(doc(firestore, "deliveryDetails", `${Date.now()}`), 
+    data, {merge : true,}
+    );
+};
+
 
 // fetch all gas items
 

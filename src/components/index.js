@@ -9,3 +9,4 @@ export { default as CartContainer } from "./CartContainer";
 export { default as ContactUsContainer } from "./ContactUsContainer";
 export { default as FooterContainer } from "./FooterContainer";
 export { default as CartItem } from "./CartItem";
+export { default as CheckOutForm } from "./CheckOutForm";
