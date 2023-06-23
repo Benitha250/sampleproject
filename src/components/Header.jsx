@@ -139,7 +139,7 @@ const Header = () => {
             <div className="relative flex items-center justify-center"
                 onClick={showCart}>
                 <MdShoppingCart className="text-textColor text-2xl cursor-pointer"/>
-                {cartItems && cartItems.length > 0 && (
+                {cartItems && cartItems.length >= 0 && (
                     <div className="absolute -top-1 -right-2 w-4 h-4 rounded-full bg-cartNumBg flex items-center justify-center">
                         <p className="text-xs text-white font-semibold">{cartItems.length}</p>
                     </div>

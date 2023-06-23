@@ -1,22 +1,28 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion';
-import { MdTitle, MdInfo} from 'react-icons/md';
+import { MdTitle, MdInfo, MdNumbers, MdAvTimer} from 'react-icons/md';
 import { saveCheckoutDetails } from '../utils/firebaseFunctions';
+
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 
 const CreateContainer = () => {
 
-  const [title, setTitle] = useState("");
-  const [detail, setDetail] = useState("");
+  const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
+  const [date, setDate] = useState(new Date());
   const [fields, setFields] = useState(false); //issues that needs to be displayed.
   const [alertStatus, setAlertStatus] = useState("danger");
   const [msg, setMsg] = useState(null);
+
+  const weekdays = (date) => new Date() < date;
 
 
   {/* saving details URL */}
   const saveDetails = () => {
     try {
-      if((!title || !detail)){
+      if((!name || !location || !date)){
         setFields(true);
         setMsg('Required fields can not be empty 🙇');
         setAlertStatus('danger');
@@ -26,12 +32,13 @@ const CreateContainer = () => {
       } else{
         const data = {
           id : `${Date.now()}`,
-          title : title,
-          detail : detail,
+          name : name,
+          location : location,
+          date : date,
         }
         saveCheckoutDetails(data);
         setFields(true);
-        setMsg('Order received, proceed with the payment😊');
+        setMsg('Proceed with the payment😊');
         clearData();
         setAlertStatus('success');
         setTimeout(() => {
@@ -42,7 +49,7 @@ const CreateContainer = () => {
     } catch (error) {
       console.log(error);
       setFields(true);
-      setMsg('Error while checking out : Try Again 🙇');
+      setMsg('Error : Try Again 🙇');
       setAlertStatus('danger');
       setTimeout(() => {
         setFields(false);
@@ -53,8 +60,9 @@ const CreateContainer = () => {
   {/* clearing details URL */}
 
   const clearData = () => {
-    setTitle("");
-    setDetail("");
+    setName("");
+    setLocation("");
+    setDate(date);
   }
 
 //   {/* fetching details URL */}
@@ -95,8 +103,8 @@ const CreateContainer = () => {
 
         {/* Title */}
         <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2 rounded-md">
-          <MdTitle className="text-xl text-gray-700" />
-          <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} 
+          <MdTitle className="text-2xl text-gray-700" />
+          <input type="text" required value={name} onChange={(e) => setName(e.target.value)} 
           placeholder='Names...' 
           className="w-full h-full text-lg bg-transparent outline-none border-none
           placeholder:text-gray-300 text-textColor"
@@ -108,9 +116,53 @@ const CreateContainer = () => {
         <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2 rounded-md" >
             <MdInfo className="text-gray-700 text-2xl" />
             <input type="text" required 
-            value={detail} onChange={(e) => setDetail(e.target.value) }
+            value={location} onChange={(e) => setLocation(e.target.value) }
             placeholder="Location" className="w-full h-full text-lg bg-transparent 
             outline-none border-none placeholder:text-gray-300 text-textColor" />
+        </div>
+
+
+        {/* Details about what have been ordered */}
+        <div className="w-full flex flex-col md:flex-row items-center gap-3" >
+
+          {/* Product */}
+          <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2 rounded-md" >
+            <input type="text"
+            placeholder="Product" className="w-full h-full text-lg bg-transparent 
+            outline-none border-none placeholder:text-gray-300 text-textColor" />
+          </div>
+
+          {/* Quantity */}
+          <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2 rounded-md" >
+            <input type="text"
+            placeholder="Quantity" className="w-full h-full text-lg bg-transparent 
+            outline-none border-none placeholder:text-gray-300 text-textColor" />
+          </div>
+
+          {/* Total price */}
+          <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2 rounded-md" >
+            <MdNumbers className="text-gray-700 text-2xl" />
+            <input type="text"
+            placeholder="Total" className="w-full h-full text-lg bg-transparent 
+            outline-none border-none placeholder:text-gray-300 text-textColor" />
+          </div>
+
+        </div>
+
+
+        {/* Date picker */}
+        <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2 rounded-md" >
+          <MdAvTimer className="text-gray-700 text-2xl" />
+          <DatePicker
+          className="text-red-700 text-lg" showMonthDropdown isClearable
+          value={date}
+          showTimeSelect
+          filterDate={weekdays}
+          minTime={new Date(0,0,0,7,0)}
+          maxTime={new Date(0,0,0,20,0)} 
+          selected={date} 
+          onChange={(date) => setDate(date)}
+          dateFormat="MMMM d, yyyy h:mmaa" />
         </div>
 
         {/* Button */}
