@@ -37,6 +37,7 @@ const Header = () => {
     const logout = () => {
         setIsMenu(false)
         localStorage.clear()
+        window.location.reload();
 
         dispatch({
             type : actionType.SET_USER,
@@ -94,39 +95,41 @@ const Header = () => {
                 </div>
 
                 <div className="relative">
+                    {/* <Link to={"/registerForm"}> */}
                     <motion.img 
                         whileTap={{scale: 0.6}} 
                         src={user ? user.photoURL : Avatar} 
                         className="w-9 min-w-[40px] h-10 min-h-[40px] cursor-pointer rounded-full" 
                         alt="userprofile" 
-                        onClick={login}
+                       onClick={login}
                     />
                     {
                         isMenu && (
                             <motion.div 
-                            initial={{opacity: 0, scale: 0.6}}
-                            animate={{opacity: 1, scale: 1}}
-                            exit={{opacity: 0, scale: 0.6}}
-                            className="w-40 bg-green-600 shadow-xl rounded-lg flex flex-col absolute top-12 right-0">
-                        {
-                            user && user.email === "benitha.uwase@hashienergy.com" && (
-                                <Link to={"/createItem"}>
-                                <p className="px-4 py-2 flex items-center gap-3 cursor-pointer 
-                                hover:bg-slate-200 transition-all 
-                                duration-100 ease-in-out text-textColor text-base rounded-lg"
-                                onClick={() => setIsMenu(false)}
-                                >New Item <MdAdd/></p>
-                                </Link>
-                            )
-                        }
-                        <p className="px-4 py-2 flex items-center gap-3 cursor-pointer 
-                        hover:bg-slate-200 transition-all 
-                        duration-100 ease-in-out text-textColor text-base rounded-lg"
-                        onClick={logout}
-                        >
-                            Logout <MdLogout/>
-                        </p>
-                    </motion.div>
+                                initial={{opacity: 0, scale: 0.6}}
+                                animate={{opacity: 1, scale: 1}}
+                                exit={{opacity: 0, scale: 0.6}}
+                                className="w-40 bg-green-600 shadow-xl rounded-lg flex flex-col absolute top-12 right-0">
+                                    {
+                                        user && user.email === "benithauwase05@gmail.com" && (
+                                            <Link to={"/createItem"}>
+                                            <p className="px-4 py-2 flex items-center gap-3 cursor-pointer 
+                                            hover:bg-slate-200 transition-all 
+                                            duration-100 ease-in-out text-textColor text-base rounded-lg"
+                                            onClick={() => setIsMenu(false)}
+                                            >New Item <MdAdd/></p>
+                                            </Link>
+                                        )
+                                    }
+                                    
+                                    <p className="px-4 py-2 flex items-center gap-3 cursor-pointer 
+                                        hover:bg-slate-200 transition-all 
+                                        duration-100 ease-in-out text-textColor text-base rounded-lg"
+                                        onClick={logout}>
+
+                                        Logout <MdLogout/>
+                                    </p>
+                             </motion.div>
                         )
                     }
                 </div>
@@ -217,7 +220,7 @@ const Header = () => {
                     </motion.div>
                         )
                     }
-                </div>
+            </div>
         </div>
     </header>
   )

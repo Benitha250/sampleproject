@@ -30,7 +30,6 @@ function ContactUsContainer() {
         </div>
       </div>
 
-      <FooterContainer/>
     </section>
   )
 }

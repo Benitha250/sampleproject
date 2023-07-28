@@ -53,7 +53,6 @@ const MenuContainer = () => {
 
         </div>
 
-        <FooterContainer/>
     </section>
 
   )

@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import HomeContainer from './HomeContainer';
-import { motion } from 'framer-motion';
-import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import RowContainer from './RowContainer';
 import { useStateValue } from '../context/StateProvider';
 import MenuContainer from './MenuContainer';
 import CartContainer from './CartContainer';
-import FooterContainer from './FooterContainer';
 import ContactUsContainer from './ContactUsContainer';
 
 
@@ -55,9 +52,6 @@ const MainContainer = () => {
       )}
 
       <ContactUsContainer />
-
-      <FooterContainer />
-
     </div>
   )
 }

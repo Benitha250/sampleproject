@@ -10,3 +10,5 @@ export { default as ContactUsContainer } from "./ContactUsContainer";
 export { default as FooterContainer } from "./FooterContainer";
 export { default as CartItem } from "./CartItem";
 export { default as CheckOutForm } from "./CheckOutForm";
+export { default as LoginForm } from "./LoginForm"
+export { default as RegisterForm } from "./RegisterForm"
