@@ -39,7 +39,7 @@ const CartItem = ({item, setflag, flag}) => {
                 cartItems.map((item) => {
                     if (item.id === id){
                         item.qty -= 1;
-                        setflag(flag +1);
+                        setflag(flag + 1);
                     }
                 });
                 cartDispatch();
