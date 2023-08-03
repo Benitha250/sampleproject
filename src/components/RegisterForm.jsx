@@ -1,5 +1,6 @@
 import { useState } from 'react'; 
 import { Link } from 'react-router-dom';
+import { saveRegisterDetails } from '../utils/firebaseFunctions';
 
 export default function Form() {
  
@@ -16,7 +17,7 @@ export default function Form() {
             return
         }
         if (phone.length !== 10) {
-            alert('phone number must be 10 digits.')
+            alert('Phone number must be 10 digits.')
             return
         }
         if (password.length < 4) {
@@ -28,8 +29,27 @@ export default function Form() {
             return
         }
 
+        const data = {
+            id : `${Date.now()}`,
+            name : name,
+            phone : phone,
+            password : password,
+          }
+          saveRegisterDetails(data);
+          clearData();
+
+
         alert('Successfully registered!! ')
     }
+
+    {/* clearing details URL */}
+
+  const clearData = () => {
+    setName("");
+    setPhone("");
+    setPassword("");
+    setConfirmPassword("");
+  }
  
 
  
@@ -49,7 +69,7 @@ export default function Form() {
 
                 {/* Name */}
                 <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2 rounded-md">
-                    <input type="text" required onChange={(e) => setName(e.target.value)} 
+                    <input type="text" required value={name} onChange={(e) => setName(e.target.value)} 
                     placeholder='Names...' 
                     className="w-full h-full text-lg bg-transparent outline-none border-none
                     placeholder:text-gray-300 text-textColor"
@@ -59,7 +79,7 @@ export default function Form() {
 
                 {/* Phone */}
                 <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2 rounded-md" >
-                    <input type="number" required pattern="[0-9]*"
+                    <input type="number" required pattern="[0-9]*" value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Phone number" className="w-full h-full text-lg bg-transparent 
                     outline-none border-none placeholder:text-gray-300 text-textColor" />
@@ -67,7 +87,7 @@ export default function Form() {
 
                 {/* Password */}
                 <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2 rounded-md" >
-                    <input type="password"
+                    <input type="password" value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password" className="w-full h-full text-lg bg-transparent 
                     outline-none border-none placeholder:text-gray-300 text-textColor" />
@@ -75,7 +95,7 @@ export default function Form() {
 
                 {/* Confirm Password */}
                 <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2 rounded-md" >
-                    <input type="password"
+                    <input type="password" value={confirmpassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm password" className="w-full h-full text-lg bg-transparent 
                     outline-none border-none placeholder:text-gray-300 text-textColor" />

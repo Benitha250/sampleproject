@@ -3,12 +3,11 @@ import {IoImage} from 'react-icons/io5'
 import { categories } from '../utils/data';
 import { motion } from 'framer-motion';
 import RowContainer from './RowContainer';
-import FooterContainer from './FooterContainer';
 import { useStateValue } from '../context/StateProvider';
 
 const MenuContainer = () => {
 
-    const [filter, setFilter] = useState("cylinders");
+    const [filter, setFilter] = useState("pipes");
 
     const [{gasItems}, dispatch] = useStateValue()
 

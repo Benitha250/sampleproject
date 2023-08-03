@@ -26,7 +26,7 @@ const CartContainer = () => {
         type : actionType.SET_CART_SHOW,
         cartShow : !cartShow,
     });
-};
+  };
 
 const login = async() => {
   if (!user) {
